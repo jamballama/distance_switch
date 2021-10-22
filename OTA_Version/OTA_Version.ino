@@ -10,9 +10,9 @@
 ////SONO STUFF
 
 // constants won't change. Used here to set a pin number:
-const int relaisPin =  LED_BUILTIN;// the number of the LED pin
-const int trigger = MISO;  //trigger pin number  NUMBER D6
-const int echo = MOSI;   //echo pin number       NUMBER D7
+const int relaisPin = 12;//                 NUMBER D6
+const int trigger = 13;  //trigger pin number  NUMBER D8
+const int echo = 15;   //echo pin number       NUMBER D7
 
 
 // Variables will change:
@@ -27,7 +27,7 @@ unsigned long triggerMillis = 0;
 
 // constants won't change:
 const long interval = 1800;           // interval at which to shut down and up 1800000 = 30 Minuten
-const long distT = 200;             // 
+const long distT = 200;             // distance range at which to trigger
 
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT);     // Initialize the LED_BUILTIN pin as an output
@@ -115,17 +115,7 @@ int sense()
 void loop() {
   // Check for OTA updates
   ArduinoOTA.handle();
-
-    delay(50);
-    digitalWrite(trigger, HIGH);             // Den Trigger auf HIGH setzen um eine 
-
-                                             // Ultraschallwelle zu senden
-
-    delay(50);                               // 10 Millisekunden warten
-
-    digitalWrite(trigger, LOW);              // Trigger auf LOW setzen um das 
-
-  /*
+    
    unsigned long currentMillis = millis();
   dist = sense();
   if (dist<= distT) {
@@ -146,6 +136,5 @@ void loop() {
   Serial.print(" ");
   
   digitalWrite(relaisPin, relaisState);
-*/
   
 }

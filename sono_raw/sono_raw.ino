@@ -1,6 +1,6 @@
-int trigger=9;                               // Der Trigger Pin
+int trigger=13;                               // Der Trigger Pin
 
-int echo=8;                                  // Der Echo Pin
+int echo=15;                                  // Der Echo Pin
 
 long dauer=0;                                // Hier wird die Zeitdauer abgespeichert
 
