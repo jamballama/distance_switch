@@ -116,12 +116,12 @@ void loop() {
   // Check for OTA updates
   ArduinoOTA.handle();
 
-    delay(100);
+    delay(50);
     digitalWrite(trigger, HIGH);             // Den Trigger auf HIGH setzen um eine 
 
                                              // Ultraschallwelle zu senden
 
-    delay(200);                               // 10 Millisekunden warten
+    delay(50);                               // 10 Millisekunden warten
 
     digitalWrite(trigger, LOW);              // Trigger auf LOW setzen um das 
 
