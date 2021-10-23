@@ -26,8 +26,8 @@ unsigned long previousMillis = 0;        // will store last time LED was updated
 unsigned long triggerMillis = 0;
 
 // constants won't change:
-const long interval = 1800;           // interval at which to shut down and up 1800000 = 30 Minuten
-const long distT = 200;             // distance range at which to trigger
+const long interval = 7000;           // interval at which to shut down and up 1800000 = 30 Minuten
+const long distT = 140;             // distance range at which to trigger
 
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT);     // Initialize the LED_BUILTIN pin as an output
@@ -68,7 +68,7 @@ void setup() {
 
 
 
-int sense()
+int ultra()
 
 {
 
@@ -96,19 +96,24 @@ int sense()
 
     dist = (dauer/2) / 29.1;           // Die Zeit in den Weg in Zentimeter umrechnen
 
- 
-
-        Serial.print(dist);            // Den Weg in Zentimeter ausgeben
-
-        Serial.println(" cm");               //
-
- 
-
-    delay(10);                             // Nach einer Hunderstelsekunde wiederholen
+     delay(10);                             // Nach einer Hunderstelsekunde wiederholen
     return dist;
 
  
 
+}
+
+
+int sense() {
+  int zwerg = 0;
+  for(int i = 0; i<= 9; i++){
+    zwerg = zwerg + ultra();
+    delay (100);
+  }
+  zwerg= zwerg/10;
+  Serial.print(zwerg);            // Den Weg in Zentimeter ausgeben
+  Serial.println(" cm");            
+  return zwerg;
 }
 
 // the loop function runs over and over again forever
@@ -122,17 +127,18 @@ void loop() {
     // save the last time you trigger the sono 
     triggerMillis = currentMillis;
     relaisState = HIGH;
- 
     }
+
+  if (dist>=distT && currentMillis - triggerMillis <= interval){
+    relaisState = HIGH;
+  }
   if (dist>=distT && currentMillis - triggerMillis >= interval){
     relaisState = LOW;
     
   }
-  if (dist>=distT && currentMillis - triggerMillis <= interval){
-    relaisState = HIGH;
-  }
+  
   Serial.print(" ");
-  Serial.print(currentMillis - triggerMillis);
+  //LSerial.print(currentMillis - triggerMillis);
   Serial.print(" ");
   
   digitalWrite(relaisPin, relaisState);
